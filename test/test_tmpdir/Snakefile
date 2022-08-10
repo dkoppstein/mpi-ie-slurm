@@ -1,0 +1,3 @@
+rule foobar:
+    output: "out.txt"
+    shell: "echo $TMPDIR > {output}"

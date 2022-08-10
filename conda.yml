@@ -6,4 +6,4 @@ channels:
 dependencies:
   - snakedeploy
   - snakefmt
-  - snakemake>=5.15.0
+  - snakemake>=7.0.0

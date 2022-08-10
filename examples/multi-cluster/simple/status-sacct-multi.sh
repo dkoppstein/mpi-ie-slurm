@@ -1,1 +1,0 @@
-../../../extras/status-sacct-multi.sh
