@@ -4,7 +4,8 @@ default-resources:
   - mem_mb=1000
   - disk_mb=1000
   - logdir=logs
-  #- mail_type=DONE ## uncomment these two lines for mailing
+  # uncomment these two lines for mailing
+  #- mail_type=END
   #- mail_user=koppstein@ie-freiburg.mpg.de
 cluster:
   if [ -d {resources.tmpdir} ]; then
@@ -22,8 +23,10 @@ cluster:
     --job-name=smk-{rule}-{wildcards}
     --output={resources.logdir}/`date +"%F"`/{rule}/{rule}-{wildcards}-`date +"%H%m%S"`-job%j.out
     --error={resources.logdir}/`date +"%F"`/{rule}/{rule}-{wildcards}-`date +"%H%m%S"`-job%j.err
-    --parsable # required to run status-scontrol.sh (as well as other scripts)
-    #--mail-user={resources.mail_user} ## uncomment these two lines for mailing
+    # required to run status-scontrol.sh (as well as other scripts)
+    --parsable
+    # uncomment these two lines for mailing
+    #--mail-user={resources.mail_user}
     #--mail-type={resources.mail_type}
 restart-times: 3
 max-jobs-per-second: 10
