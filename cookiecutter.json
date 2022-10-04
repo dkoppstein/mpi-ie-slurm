@@ -1,0 +1,7 @@
+{
+	"user": "user",
+	"profile_name": "mpi-ie-slurm",
+	"email": "user@ie-freiburg.mpg.de",
+	"default_partition": "bioinfo",
+	"default_tempdir": "/data/extended",
+}
