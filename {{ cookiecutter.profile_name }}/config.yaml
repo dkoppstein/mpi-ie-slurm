@@ -1,12 +1,11 @@
 default-resources:
-  - partition=bioinfo
-  - tmpdir='/data/extended'
-  - mem_mb=1000
-  - disk_mb=1000
+  - partition={{ cookiecutter.default_partition }}
+  - tmpdir='{{ cookiecutter.default_tempdir }}'
+  - mem_mb=2400
+  - disk_mb=2400
   - logdir=logs
-  # uncomment these two lines for mailing
-  #- mail_type=END
-  #- mail_user=koppstein@ie-freiburg.mpg.de
+  - mail_type=FAIL,END
+  - mail_user={{ cookiecutter.email }}
 cluster:
   if [ -d {resources.tmpdir} ]; then
     export TMPDIR={resources.tmpdir};
@@ -14,21 +13,19 @@ cluster:
     >&2 echo "Warning... tempdir {resources.tmpdir} does not exist. TMPDIR is set to $TMPDIR.";
   fi;
   module load slurm &&
-  mkdir -p {resources.logdir}/`date +"%F"`/{rule} &&
+  mkdir -p {resources.logdir}/cluster/`date +"%F"`/{rule} &&
   sbatch
     --partition={resources.partition}
     --ntasks-per-node 1
     --cpus-per-task={threads}
     --mem={resources.mem_mb}
     --job-name=smk-{rule}-{wildcards}
-    --output={resources.logdir}/`date +"%F"`/{rule}/{rule}-{wildcards}-`date +"%H%m%S"`-job%j.out
-    --error={resources.logdir}/`date +"%F"`/{rule}/{rule}-{wildcards}-`date +"%H%m%S"`-job%j.err
-    # required to run status-scontrol.sh (as well as other scripts)
+    --output={resources.logdir}/cluster/`date +"%F"`/{rule}/{rule}-{wildcards}-`date +"%H%m%S"`-job%j.out
+    --error={resources.logdir}/cluster/`date +"%F"`/{rule}/{rule}-{wildcards}-`date +"%H%m%S"`-job%j.err
     --parsable
-    # uncomment these two lines for mailing
-    #--mail-user={resources.mail_user}
-    #--mail-type={resources.mail_type}
-restart-times: 3
+    --mail-user={resources.mail_user}
+    --mail-type={resources.mail_type}
+restart-times: 1
 max-jobs-per-second: 10
 max-status-checks-per-second: 1
 local-cores: 2
@@ -47,7 +44,7 @@ cluster-status: status-scontrol.sh
 # additional options that might be useful for individual workflows
 
 # set a shadow directory for jobs that create lots of temporary files
-#shadow-prefix: /scratch/local/shadow
+shadow-prefix: /scratch/local/{{ cookiecutter.user }}/shadow
 
 # set rule-specific threads
 # set-threads:

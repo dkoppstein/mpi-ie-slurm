@@ -13,6 +13,13 @@ This is a fork of the excellent [smk-simple-slurm][] Snakemake profile, which
 itself is a simplified version of the more comprehensive [official Slurm
 profile for Snakemake][slurm-official].
 
+## Install
+
+Install [cookiecutter](https://github.com/cookiecutter/cookiecutter). 
+If you are on the MPI-IE cluster, cookiecutter is already installed -- run `module load cookiecutter`.
+
+Run cookiecutter gh:maxplanck-ie/mpi-ie-slurm. Answer the prompts. 
+
 ## Features
 
 * Support for stopping Snakemake with Ctrl-C, which then propagates `scancel`
