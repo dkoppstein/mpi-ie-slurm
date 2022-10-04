@@ -18,7 +18,7 @@ profile for Snakemake][slurm-official].
 Install [cookiecutter](https://github.com/cookiecutter/cookiecutter). 
 If you are on the MPI-IE cluster, cookiecutter is already installed -- run `module load cookiecutter`.
 
-Run cookiecutter gh:maxplanck-ie/mpi-ie-slurm. Answer the prompts. 
+Run cookiecutter gh:maxplanck-ie/mpi-ie-slurm. Answer the prompts. **Be sure to explicitly answer the user and email prompts.**
 
 ## Features
 
