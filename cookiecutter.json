@@ -1,8 +1,8 @@
 {
-	"user": "user",
+	"user": "$USER",
 	"profile_name": "mpi-ie-slurm",
-	"email": "user@ie-freiburg.mpg.de",
+	"email": "$USER@ie-freiburg.mpg.de",
 	"default_partition": "bioinfo",
-	"default_tempdir": "/data/extended",
+	"default_tempdir": "/data/extended/$USER",
 	"conda_prefix": "/localenv/$USER/anaconda/miniconda3/snakemake-envs"
 }

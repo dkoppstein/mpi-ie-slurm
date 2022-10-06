@@ -7,6 +7,7 @@ default-resources:
   - mail_type=FAIL,END
   - mail_user={{ cookiecutter.email }}
 cluster:
+  mkdir -p {resources.tmpdir};
   if [ -d {resources.tmpdir} ]; then
     export TMPDIR={resources.tmpdir};
     export TEMP=$TMPDIR;
@@ -48,7 +49,7 @@ cluster-status: status-scontrol.sh
 # additional options that might be useful for individual workflows
 
 # set a shadow directory for jobs that create lots of temporary files
-shadow-prefix: /scratch/local/{{ cookiecutter.user }}/shadow
+shadow-prefix: {{ cookiecutter.default_tempdir }}/shadow
 
 # set rule-specific threads
 # set-threads:
