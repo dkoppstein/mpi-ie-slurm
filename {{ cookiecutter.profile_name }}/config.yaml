@@ -14,6 +14,7 @@ cluster:
   else
     >&2 echo "Warning... tempdir {resources.tmpdir} does not exist. TMPDIR is set to $TMPDIR.";
   fi;
+  mkdir -p {{ cookiecutter.conda_prefix }};
   module load slurm &&
   mkdir -p {resources.logdir}/cluster/`date +"%F"`/{rule} &&
   sbatch
@@ -38,6 +39,7 @@ rerun-incomplete: True
 printshellcmds: True
 scheduler: greedy
 use-conda: True
+conda_prefix: {{ cookiecutter.conda_prefix }}
 cluster-cancel: cluster-cancel.sh
 cluster-cancel-nargs: 50
 use-singularity: False # if using Singularity, switch use-conda to False
