@@ -9,6 +9,8 @@ default-resources:
 cluster:
   if [ -d {resources.tmpdir} ]; then
     export TMPDIR={resources.tmpdir};
+    export TEMP=$TMPDIR;
+    export TMP=$TMPDIR;
   else
     >&2 echo "Warning... tempdir {resources.tmpdir} does not exist. TMPDIR is set to $TMPDIR.";
   fi;
