@@ -40,7 +40,7 @@ rerun-incomplete: True
 printshellcmds: True
 scheduler: greedy
 use-conda: True
-conda_prefix: {{ cookiecutter.conda_prefix }}
+conda-prefix: {{ cookiecutter.conda_prefix }}
 cluster-cancel: cluster-cancel.sh
 cluster-cancel-nargs: 50
 use-singularity: False # if using Singularity, switch use-conda to False
