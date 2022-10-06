@@ -4,5 +4,5 @@
 	"email": "$USER@ie-freiburg.mpg.de",
 	"default_partition": "bioinfo",
 	"default_tempdir": "/data/extended/$USER",
-	"conda_prefix": "/localenv/$USER/anaconda/miniconda3/snakemake-envs"
+	"conda_prefix": "/localenv/$USER/anaconda/snakemake-envs"
 }
