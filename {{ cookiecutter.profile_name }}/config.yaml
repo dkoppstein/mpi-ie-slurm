@@ -4,7 +4,7 @@ default-resources:
   - mem_mb=2400
   - disk_mb=2400
   - logdir=logs
-  - mail_type=FAIL,END
+  - mail_type=FAIL
   - mail_user={{ cookiecutter.email }}
 cluster:
   mkdir -p {resources.tmpdir};
