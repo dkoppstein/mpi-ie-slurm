@@ -1,20 +1,17 @@
 default-resources:
   - partition={{ cookiecutter.default_partition }}
-  - tmpdir='{{ cookiecutter.default_tempdir }}'
+  #- tmpdir='{{ cookiecutter.default_tempdir }}'
   - mem_mb=2400
   - disk_mb=2400
   - logdir=logs
   - mail_type=FAIL
   - mail_user={{ cookiecutter.email }}
 cluster:
-  mkdir -p {resources.tmpdir};
-  if [ -d {resources.tmpdir} ]; then
-    export TMPDIR={resources.tmpdir};
-    export TEMP=$TMPDIR;
-    export TMP=$TMPDIR;
-  else
-    >&2 echo "Warning... tempdir {resources.tmpdir} does not exist. TMPDIR is set to $TMPDIR.";
-  fi;
+  mkdir -p /scratch/local/$USER;
+  scratch=$(mktemp -p /scratch/local/$USER -d -t tmp.XXXXXXXXXXXXXXXX);
+  export TMPDIR=$scratch;
+  export TEMP=$scratch;
+  export TMP=$scratch;
   mkdir -p {{ cookiecutter.conda_prefix }};
   module load slurm &&
   mkdir -p {resources.logdir}/cluster/`date +"%F"`/{rule} &&
@@ -45,6 +42,7 @@ cluster-cancel: cluster-cancel.sh
 cluster-cancel-nargs: 50
 use-singularity: False # if using Singularity, switch use-conda to False
 cluster-status: status-scontrol.sh
+jobscript: slurm-jobscript.sh
 
 # additional options that might be useful for individual workflows
 
