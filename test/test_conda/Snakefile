@@ -1,0 +1,4 @@
+rule foobar:
+    output: "out.txt"
+    conda: "test.yaml"
+    shell: "samtools help"
