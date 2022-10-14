@@ -1,4 +1,5 @@
 rule foobar:
     output: "out.txt"
-    conda: "test.yaml"
-    shell: "samtools help"
+    conda: "problem.yaml"
+    log: "log.txt"
+    shell: "echo `which conda` > {log}; echo $PATH >> {log}; samtools help > {output} 2>&1;"
