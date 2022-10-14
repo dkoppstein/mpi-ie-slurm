@@ -1,17 +1,14 @@
 default-resources:
   - partition={{ cookiecutter.default_partition }}
-  #- tmpdir='{{ cookiecutter.default_tempdir }}'
+  #- tmpdir='{{ cookiecutter.default_tmpdir }}' # don't set tmpdir so snakemake uses system default
   - mem_mb=2400
   - disk_mb=2400
   - logdir=logs
   - mail_type=FAIL
   - mail_user={{ cookiecutter.email }}
 cluster:
-  mkdir -p /scratch/local/$USER;
-  scratch=$(mktemp -p /scratch/local/$USER -d -t tmp.XXXXXXXXXXXXXXXX);
-  export TMPDIR=$scratch;
-  export TEMP=$scratch;
-  export TMP=$scratch;
+  export TMPDIR={{ cookiecutter.default_tmpdir }};
+  mkdir -p $TMPDIR;
   mkdir -p {{ cookiecutter.conda_prefix }};
   module load slurm &&
   mkdir -p {resources.logdir}/cluster/`date +"%F"`/{rule} &&
@@ -26,6 +23,7 @@ cluster:
     --parsable
     --mail-user={resources.mail_user}
     --mail-type={resources.mail_type}
+    --export=TMPDIR
 restart-times: 1
 max-jobs-per-second: 10
 max-status-checks-per-second: 1
@@ -47,7 +45,7 @@ jobscript: slurm-jobscript.sh
 # additional options that might be useful for individual workflows
 
 # set a shadow directory for jobs that create lots of temporary files
-shadow-prefix: {{ cookiecutter.default_tempdir }}/shadow
+shadow-prefix: {{ cookiecutter.default_tmpdir }}/shadow
 
 # set rule-specific threads
 # set-threads:

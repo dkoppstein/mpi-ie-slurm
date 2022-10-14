@@ -3,6 +3,6 @@
 	"profile_name": "mpi-ie-slurm",
 	"email": "$USER@ie-freiburg.mpg.de",
 	"default_partition": "bioinfo",
-	"default_tempdir": "/data/extended/$USER",
+	"default_tmpdir": "/data/extended/$USER",
 	"conda_prefix": "/localenv/$USER/anaconda/snakemake-envs"
 }
