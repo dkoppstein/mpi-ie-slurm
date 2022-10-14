@@ -25,11 +25,11 @@ cluster:
     --mail-type={resources.mail_type}
     --export=TMPDIR
 restart-times: 1
-max-jobs-per-second: 10
+max-jobs-per-second: 1
 max-status-checks-per-second: 1
 local-cores: 2
 latency-wait: 300
-jobs: 500
+jobs: 10
 keep-going: True
 rerun-incomplete: True
 printshellcmds: True
