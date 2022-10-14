@@ -1,20 +1,14 @@
 default-resources:
   - partition={{ cookiecutter.default_partition }}
-  - tmpdir='{{ cookiecutter.default_tempdir }}'
+  #- tmpdir='{{ cookiecutter.default_tmpdir }}' # don't set tmpdir so snakemake uses system default
   - mem_mb=2400
   - disk_mb=2400
   - logdir=logs
   - mail_type=FAIL
   - mail_user={{ cookiecutter.email }}
 cluster:
-  mkdir -p {resources.tmpdir};
-  if [ -d {resources.tmpdir} ]; then
-    export TMPDIR={resources.tmpdir};
-    export TEMP=$TMPDIR;
-    export TMP=$TMPDIR;
-  else
-    >&2 echo "Warning... tempdir {resources.tmpdir} does not exist. TMPDIR is set to $TMPDIR.";
-  fi;
+  export TMPDIR={{ cookiecutter.default_tmpdir }};
+  mkdir -p $TMPDIR;
   mkdir -p {{ cookiecutter.conda_prefix }};
   module load slurm &&
   mkdir -p {resources.logdir}/cluster/`date +"%F"`/{rule} &&
@@ -29,12 +23,13 @@ cluster:
     --parsable
     --mail-user={resources.mail_user}
     --mail-type={resources.mail_type}
+    --export=TMPDIR
 restart-times: 1
-max-jobs-per-second: 10
+max-jobs-per-second: 1
 max-status-checks-per-second: 1
 local-cores: 2
 latency-wait: 300
-jobs: 500
+jobs: 10
 keep-going: True
 rerun-incomplete: True
 printshellcmds: True
@@ -45,11 +40,12 @@ cluster-cancel: cluster-cancel.sh
 cluster-cancel-nargs: 50
 use-singularity: False # if using Singularity, switch use-conda to False
 cluster-status: status-scontrol.sh
+jobscript: slurm-jobscript.sh
 
 # additional options that might be useful for individual workflows
 
 # set a shadow directory for jobs that create lots of temporary files
-shadow-prefix: {{ cookiecutter.default_tempdir }}/shadow
+shadow-prefix: {{ cookiecutter.default_tmpdir }}/shadow
 
 # set rule-specific threads
 # set-threads:
